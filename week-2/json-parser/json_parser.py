@@ -9,13 +9,14 @@ STACK: List[str] = []
 
 START_TOKEN = False
 TOKEN = ""
+TOKEN_STACK: List[str] = []
 
 
 class StateMachineNode:
-    def __init__(self, input_str: str, func: Callable[[str], None]=None):
+    def __init__(self, input_str: str, funcs: List[Callable[[str], None]]=None):
         self.input_str_value = input_str
         self.transitions = {}
-        self.func = func
+        self.funcs = funcs
 
     def add_transitions(self, input_str: str, node: 'StateMachineNode'):
         self.transitions[input_str] = node
@@ -41,15 +42,29 @@ class StateMachineNode:
         else:
             char = self._normalize_char(input_str)
             new_transition: 'StateMachineNode' = self.transitions[char]
-            if new_transition.func:
+            if new_transition.funcs:
                 try:
-                    new_transition.func(input_str)
+                    for func in new_transition.funcs:
+                        func(input_str)
                 except Exception as e:
                     return False
             return new_transition
 
 
 BEGIN_STATE: StateMachineNode = None
+
+
+def add_token_stack(input_str: str):
+    TOKEN_STACK.append(input_str)
+
+
+def pop_token_stack(input_str: str):
+    TOKEN_STACK.pop()
+
+
+def validate_token_stack(input_str=None):
+    if TOKEN_STACK:
+        raise 'invalid json'
 
 
 def enable_token(input_str: str):
@@ -111,15 +126,15 @@ def setup_transitions():
     global BEGIN_STATE
     BEGIN_STATE = begin_state
 
-    json_start_node = StateMachineNode("{", insert_in_stack)
-    token_start_state = StateMachineNode('"', enable_token)
-    token_end_state = StateMachineNode('"', disable_token)
-    comma_state = StateMachineNode(',', disable_token)
-    list_start_state = StateMachineNode('[', insert_in_stack)
-    list_end_state = StateMachineNode(']', verify_in_stack)
-    end_state = StateMachineNode('}', verify_in_stack)
-    key_state = StateMachineNode('*', collect_token)
-    key_value_separator = StateMachineNode(':', enable_token)
+    json_start_node = StateMachineNode("{", [insert_in_stack])
+    token_start_state = StateMachineNode('"', [enable_token, add_token_stack])
+    token_end_state = StateMachineNode('"', [disable_token, pop_token_stack])
+    comma_state = StateMachineNode(',', [disable_token, validate_token_stack])
+    list_start_state = StateMachineNode('[', [insert_in_stack])
+    list_end_state = StateMachineNode(']', [verify_in_stack, validate_token_stack])
+    end_state = StateMachineNode('}', [verify_in_stack, validate_token_stack])
+    key_state = StateMachineNode('*', [collect_token])
+    key_value_separator = StateMachineNode(':', [enable_token, validate_token_stack])
 
     begin_state.add_transitions('{', json_start_node)
     json_start_node.add_transitions('"', token_start_state)
@@ -159,6 +174,8 @@ def setup_transitions():
 
 
 def test_json(input_str: str) -> bool:
+    if not input_str:
+        return False
     current_state: StateMachineNode = BEGIN_STATE
     index: int = 0
     valid_json = True
@@ -170,6 +187,8 @@ def test_json(input_str: str) -> bool:
             break
         index += 1
         current_state = new_state
+    if STACK:
+        return False
     if valid_json:
         return True
     else:
@@ -185,29 +204,33 @@ class TestStringMethods(unittest.TestCase):
 
     def setUp(self):
         setup_transitions()
+        global STACK
+        STACK = []
+        global TOKEN_STACK
+        TOKEN_STACK = []
 
     def test_empty(self):
-        self.assertTrue(test_json(''), False)
+        self.assertFalse(test_json(''))
 
     def test_simple_json(self):
-        self.assertTrue(test_json('{}'), False)
+        self.assertTrue(test_json('{}'))
 
     def test_simple_json_one_key_value(self):
-        self.assertTrue(test_json('{\"abc\": \"def\"}'), False)
+        self.assertTrue(test_json('{\"abc\": \"def\"}'))
 
     def test_simple_invalid_json(self):
-        self.assertFalse(test_json('{\"abc\": \"def\"}}'), False)
-        self.assertFalse(test_json('{{\"abc\": \"def\"}'), False)
-        self.assertFalse(test_json('{\"abc\":: \"def\"}'), False)
-        self.assertFalse(test_json('{\"abc\"\": \"def\"}'), False)
-        self.assertFalse(test_json('{\"abc\"\" \"def\"}'), False)
+        self.assertFalse(test_json('{\"abc\": \"def\"}}'))
+        self.assertFalse(test_json('{{\"abc\": \"def\"}'))
+        self.assertFalse(test_json('{\"abc\":: \"def\"}'))
+        self.assertFalse(test_json('{\"abc\"\": \"def\"}'))
+        self.assertFalse(test_json('{\"abc\"\" \"def\"}'))
 
     def test_simple_json_with_list(self):
-        self.assertTrue(test_json('{\"abc\": [\"def\", \"ghi\"]}'), True)
+        self.assertTrue(test_json('{\"abc\": [\"def\", \"ghi\"]}'))
 
     def test_step1_invalid(self):
         content = get_file_content('tests/step1/invalid.json')
-        self.assertTrue(test_json(content), False)
+        self.assertFalse(test_json(content))
 
     def test_step1_valid(self):
         content = get_file_content('tests/step1/valid.json')
