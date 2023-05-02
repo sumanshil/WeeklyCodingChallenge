@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27f4c679-3e7c-4c0d-94cd-8de4f024c74b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../week-2/json-parser-golang/json_parser.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hoffman_encoding.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/priority_queue/priority_queue.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/priority_queue/priortity_queue_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoffman_encoding.go" beforeDir="false" afterPath="$PROJECT_DIR$/hoffman_encoding.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,12 +139,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/hoffman_encoding.go</url>
-          <line>119</line>
+          <line>131</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/hoffman_encoding.go</url>
-          <line>115</line>
+          <line>127</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>

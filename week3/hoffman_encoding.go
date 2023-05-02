@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 )
 
 type HuffBaseNode interface {
@@ -87,6 +88,21 @@ func NewHuffTreeWithInternalNode(left HuffBaseNode,
 	}
 }
 
+func assignPrefixes(baseNode HuffBaseNode, prefixMap map[string]string, prefixes []string) {
+	v, ok := baseNode.(*HuffLeafNode)
+	if ok {
+		prefixMap[v.element] = strings.Join(prefixes, "")
+		return
+	}
+	internal, _ := baseNode.(*HuffInternalNode)
+	prefixes = append(prefixes, "0")
+	assignPrefixes(internal.left, prefixMap, prefixes)
+	prefixes = prefixes[:len(prefixes)-1]
+	prefixes = append(prefixes, "1")
+	assignPrefixes(internal.right, prefixMap, prefixes)
+	prefixes = prefixes[:len(prefixes)-1]
+}
+
 func main() {
 	fmt.Println("Hello world")
 	data, _ := os.ReadFile("./data/data.txt")
@@ -118,5 +134,11 @@ func main() {
 		priorityQueue.Insert(tree3)
 	}
 	println(tree3.Weight())
-
+	prefixMap := make(map[string]string)
+	prefixes := make([]string, 0)
+	assignPrefixes(tree3.root, prefixMap, prefixes)
+	for str, prefix := range prefixMap {
+		println(str)
+		println(prefix)
+	}
 }
