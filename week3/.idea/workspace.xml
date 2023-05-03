@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27f4c679-3e7c-4c0d-94cd-8de4f024c74b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/trie/trie.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trie/trie_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hoffman_encoding.go" beforeDir="false" afterPath="$PROJECT_DIR$/hoffman_encoding.go" afterDir="false" />
     </list>
@@ -53,7 +55,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Build.go build hoffman_encoding.go">
+  <component name="RunManager" selected="Go Test.TestInsert in compression_tool/trie">
     <configuration name="go build hoffman_encoding.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="week3" />
       <working_directory value="$PROJECT_DIR$" />
@@ -62,11 +64,20 @@
       <filePath value="$PROJECT_DIR$/hoffman_encoding.go" />
       <method v="2" />
     </configuration>
-    <configuration name="TestInsert in priority_queue" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="go build trie.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="week3" />
-      <working_directory value="$PROJECT_DIR$/priority_queue" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/trie/trie.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestInsert in compression_tool/trie" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="week3" />
+      <working_directory value="$PROJECT_DIR$/trie" />
+      <root_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <package value="priority_queue" />
+      <package value="compression_tool/trie" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
@@ -79,17 +90,6 @@
       <root_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
       <package value="compression_tool/priority_queue" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestInsertSortedInput\E$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestInsertSortedInput in priority_queue" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="week3" />
-      <working_directory value="$PROJECT_DIR$/priority_queue" />
-      <kind value="PACKAGE" />
-      <package value="priority_queue" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
@@ -109,11 +109,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestInsert in compression_tool/trie" />
+        <item itemvalue="Go Build.go build trie.go" />
         <item itemvalue="Go Build.go build hoffman_encoding.go" />
         <item itemvalue="Go Test.TestInsertSortedInput in compression_tool/priority_queue" />
         <item itemvalue="Go Test.TestInsertUnSortedInput in priority_queue" />
-        <item itemvalue="Go Test.TestInsertSortedInput in priority_queue" />
-        <item itemvalue="Go Test.TestInsert in priority_queue" />
       </list>
     </recent_temporary>
   </component>
@@ -139,13 +139,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/hoffman_encoding.go</url>
-          <line>131</line>
-          <option name="timeStamp" value="5" />
+          <line>136</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/hoffman_encoding.go</url>
-          <line>127</line>
-          <option name="timeStamp" value="6" />
+          <line>90</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/trie/trie.go</url>
+          <line>10</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/trie/trie_test.go</url>
+          <line>5</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

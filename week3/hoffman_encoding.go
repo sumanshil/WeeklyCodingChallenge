@@ -4,7 +4,6 @@ import (
 	"compression_tool/priority_queue"
 	"fmt"
 	"os"
-	"strconv"
 	"strings"
 )
 
@@ -121,7 +120,6 @@ func main() {
 	for str, frequency := range charFrequency {
 		//treeLeafNodes = append(treeLeafNodes, NewHuffTreeWithLeafNode(str, frequency))
 		priorityQueue.Insert(NewHuffTreeWithLeafNode(str, frequency))
-		println(str + " ===> " + strconv.Itoa(frequency))
 	}
 	var tree3 *HuffTree
 	for priorityQueue.Size() > 1 {
@@ -138,7 +136,6 @@ func main() {
 	prefixes := make([]string, 0)
 	assignPrefixes(tree3.root, prefixMap, prefixes)
 	for str, prefix := range prefixMap {
-		println(str)
-		println(prefix)
+		println(str + "===>" + prefix)
 	}
 }
